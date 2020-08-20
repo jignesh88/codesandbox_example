@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CounterHeader from "../../components/CounterHeader/CounterHeader";
 import CounterOutput from "../../components/CounterOutput/CounterOutput";
+import { connect } from "react-redux";
 
 const Counter = (props) => {
   const [state, setState] = useState({
@@ -10,16 +11,16 @@ const Counter = (props) => {
   const clickButtonHandler = (action, value) => {
     switch (action) {
       case "inc":
-        setState({ counter: state.counter + value });
+        props.incrementCounter(1);
         break;
       case "dec":
-        setState({ counter: state.counter - value });
+        props.decrementCounter(1);
         break;
       case "add":
-        setState({ counter: state.counter + value });
+        props.incrementCounter(10);
         break;
       case "del":
-        setState({ counter: state.counter - value });
+        props.decrementCounter(10);
         break;
       default:
         break;
@@ -28,9 +29,22 @@ const Counter = (props) => {
   return (
     <div>
       <CounterHeader onClick={clickButtonHandler} />
-      <CounterOutput counter={state.counter} />
+      <CounterOutput counter={props.ctr} />
     </div>
   );
 };
 
-export default Counter;
+const mapStateToProps = (state) => {
+  return {
+    ctr: state.counter
+  };
+};
+
+const mapsActionsToProps = (dispatch) => {
+  return {
+    incrementCounter: (val = 1) => dispatch({ type: "inc", value: val }),
+    decrementCounter: (val = 1) => dispatch({ type: "dec", value: val })
+  };
+};
+
+export default connect(mapStateToProps, mapsActionsToProps)(Counter);
