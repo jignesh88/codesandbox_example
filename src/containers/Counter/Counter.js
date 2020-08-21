@@ -1,31 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import CounterHeader from "../../components/CounterHeader/CounterHeader";
 import CounterOutput from "../../components/CounterOutput/CounterOutput";
 import { connect } from "react-redux";
+import * as actionTypes from "../../store/actions";
 
 const Counter = (props) => {
-  const [state, setState] = useState({
-    counter: 0
-  });
-
   const clickButtonHandler = (action, value) => {
     switch (action) {
-      case "inc":
+      case actionTypes.INCREMENT:
         props.incrementCounter(1);
         break;
-      case "dec":
+      case actionTypes.DESCREMENT:
         props.decrementCounter(1);
         break;
-      case "add":
+      case actionTypes.ADDCOUNTER:
         props.incrementCounter(10);
         break;
-      case "del":
+      case actionTypes.DELCOUNTER:
         props.decrementCounter(10);
         break;
-      case "addcounter":
+      case actionTypes.ADD_COUNTER_RECORD:
         props.addCounter({ id: new Date(), value: props.ctr });
         break;
-      case "removecounter":
+      case actionTypes.DEL_COUNTER_RECORD:
         props.removeCounter(value);
         break;
       default:
@@ -52,18 +49,23 @@ const Counter = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    ctr: state.counter,
-    records: state.records
+    ctr: state.count.counter,
+    records: state.rec.records
   };
 };
 
 const mapsActionsToProps = (dispatch) => {
   return {
-    incrementCounter: (val = 1) => dispatch({ type: "inc", value: val }),
-    decrementCounter: (val = 1) => dispatch({ type: "dec", value: val }),
-    addCounter: (val) => dispatch({ type: "addcounter", value: val }),
-    removeCounter: (val) => dispatch({ type: "removecounter", value: val })
+    incrementCounter: (val = 1) =>
+      dispatch({ type: actionTypes.INCREMENT, value: val }),
+    decrementCounter: (val = 1) =>
+      dispatch({ type: actionTypes.DECREMENT, value: val }),
+    addCounter: (val) =>
+      dispatch({ type: actionTypes.ADD_COUNTER_RECORD, value: val }),
+    removeCounter: (val) =>
+      dispatch({ type: actionTypes.DEL_COUNTER_RECORD, value: val })
   };
 };
 

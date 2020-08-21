@@ -3,8 +3,14 @@ import ReactDOM from "react-dom";
 import { createStore } from "redux";
 import App from "./App";
 import { Provider } from "react-redux";
-import reducers from "./store/reducers";
+import { combineReducers } from "redux";
+import counter from "./store/reducers/counter";
+import records from "./store/reducers/records";
 
+const reducers = combineReducers({
+  rec: records,
+  count: counter
+});
 const store = createStore(reducers);
 
 const rootElement = document.getElementById("root");
