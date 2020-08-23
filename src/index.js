@@ -1,17 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import App from "./App";
 import { Provider } from "react-redux";
-import { combineReducers } from "redux";
-import counter from "./store/reducers/counter";
-import records from "./store/reducers/records";
+import reducers from "./store/reducers";
 
-const reducers = combineReducers({
-  rec: records,
-  count: counter
-});
-const store = createStore(reducers);
+const logger = (store) => {
+  return (next) => {
+    return (action) => {
+      console.log("[Middleware] dispatching", action);
+      const result = next(action);
+      console.log("[Middleware]", store.getState());
+      return result;
+    };
+  };
+};
+
+const store = createStore(reducers, applyMiddleware(logger));
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
