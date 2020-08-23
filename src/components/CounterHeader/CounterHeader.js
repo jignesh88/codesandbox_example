@@ -1,26 +1,38 @@
 import React from "react";
 import classes from "./CounterHeader.module.css";
-import * as actionTypes from "../../store/actions";
+import Button from "@material-ui/core/Button";
 
 const CounterHeader = (props) => {
   return (
     <div className={classes.CounterHeader}>
-      <button onClick={() => props.onClick(actionTypes.INCREMENT, 1)}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => props.onClick("inc", 1)}
+      >
         Increment 1
-      </button>
-      <button onClick={() => props.onClick(actionTypes.DECREMENT, 1)}>
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => props.onClick("dec", 1)}
+      >
         Decrement 1
-      </button>
-      <button onClick={() => props.onClick(actionTypes.ADDCOUNTER, 5)}>
-        Add 5
-      </button>
-      <button onClick={() => props.onClick(actionTypes.DELCOUNTER, 5)}>
-        Remove 5
-      </button>
-
-      <button onClick={() => props.onClick(actionTypes.ADD_COUNTER_RECORD)}>
-        Add Counter
-      </button>
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => props.onClick("add", 5)}
+      >
+        Add 10
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => props.onClick("del", 5)}
+      >
+        Remove 10
+      </Button>
     </div>
   );
 };
