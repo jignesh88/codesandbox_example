@@ -11,7 +11,7 @@ const counter = (state = initState, action) => {
     case actionTypes.INCREMENT:
       console.log("action", action.value);
       return updatdObject(state, { counter: state.counter + action.value });
-    case actionTypes.DESCREMENT:
+    case actionTypes.DECREMENT:
       return updatdObject(state, { counter: state.counter - action.value });
     case actionTypes.ADDCOUNTER:
       return updatdObject(state, { counter: state.counter + action.value });
