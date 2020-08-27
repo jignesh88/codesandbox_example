@@ -2,13 +2,13 @@ import React from "react";
 import CounterHeader from "../../components/CounterHeader/CounterHeader";
 import CounterOutput from "../../components/CounterOutput/CounterOutput";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions/actions";
+import * as actionTypes from "../../store/actions/actionTypes";
 import {
   increment,
   decrement,
   add_record,
   del_record
-} from "../../store/actions/actions";
+} from "../../store/actions/index";
 
 const Counter = (props) => {
   const clickButtonHandler = (action, value) => {
@@ -16,7 +16,7 @@ const Counter = (props) => {
       case actionTypes.INCREMENT:
         props.incrementCounter(1);
         break;
-      case actionTypes.DESCREMENT:
+      case actionTypes.DECREMENT:
         props.decrementCounter(1);
         break;
       case actionTypes.ADDCOUNTER:
