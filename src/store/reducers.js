@@ -8,6 +8,7 @@ const initState = {
 const counter = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.INCREMENT:
+      console.log("action", action.value);
       return {
         ...state,
         counter: state.counter + action.value
@@ -15,7 +16,7 @@ const counter = (state = initState, action) => {
     case actionTypes.DESCREMENT:
       return {
         ...state,
-        counter: state.counter + action.value
+        counter: state.counter - action.value
       };
     case actionTypes.ADDCOUNTER:
       return {
@@ -25,7 +26,7 @@ const counter = (state = initState, action) => {
     case actionTypes.DELCOUNTER:
       return {
         ...state,
-        counter: state.counter + action.value
+        counter: state.counter - action.value
       };
     case actionTypes.ADD_COUNTER_RECORD:
       return {
@@ -35,7 +36,7 @@ const counter = (state = initState, action) => {
     case actionTypes.DEL_COUNTER_RECORD:
       return {
         ...state,
-        records: state.records.fill((item) => item.id !== action.value)
+        records: state.records.filter((item) => item.id !== action.value.id)
       };
     default:
       return state;

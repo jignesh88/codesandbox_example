@@ -2,7 +2,13 @@ import React from "react";
 import CounterHeader from "../../components/CounterHeader/CounterHeader";
 import CounterOutput from "../../components/CounterOutput/CounterOutput";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import * as actionTypes from "../../store/actions/actions";
+import {
+  increment,
+  decrement,
+  add_record,
+  del_record
+} from "../../store/actions/actions";
 
 const Counter = (props) => {
   const clickButtonHandler = (action, value) => {
@@ -20,10 +26,7 @@ const Counter = (props) => {
         props.decrementCounter(10);
         break;
       case actionTypes.ADD_COUNTER_RECORD:
-        props.addCounter({ id: new Date(), value: props.ctr });
-        break;
-      case actionTypes.DEL_COUNTER_RECORD:
-        props.removeCounter(value);
+        props.onStoreResult({ id: new Date(), value: props.ctr });
         break;
       default:
         break;
@@ -31,7 +34,7 @@ const Counter = (props) => {
   };
 
   const removeRecord = (item) => {
-    props.removeCounter(item);
+    props.onDeleteResult(item);
   };
   return (
     <div>
@@ -49,23 +52,21 @@ const Counter = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  console.log("mapped state", state);
   return {
-    ctr: state.count.counter,
-    records: state.rec.records
+    ctr: state.counter,
+    records: state.records
   };
 };
 
 const mapsActionsToProps = (dispatch) => {
   return {
-    incrementCounter: (val = 1) =>
-      dispatch({ type: actionTypes.INCREMENT, value: val }),
-    decrementCounter: (val = 1) =>
-      dispatch({ type: actionTypes.DECREMENT, value: val }),
-    addCounter: (val) =>
-      dispatch({ type: actionTypes.ADD_COUNTER_RECORD, value: val }),
-    removeCounter: (val) =>
-      dispatch({ type: actionTypes.DEL_COUNTER_RECORD, value: val })
+    incrementCounter: (val = 1) => dispatch(increment(val)),
+    decrementCounter: (val = 1) => dispatch(decrement(val)),
+    addCounter: (val) => dispatch(increment(val)),
+    removeCounter: (val) => dispatch(decrement(val)),
+    onStoreResult: (val) => dispatch(add_record(val)),
+    onDeleteResult: (val) => dispatch(del_record(val))
   };
 };
 
